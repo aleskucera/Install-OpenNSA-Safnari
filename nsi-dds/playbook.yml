@@ -1,0 +1,55 @@
+--- 
+  - hosts: all
+    become: true
+    vars_files:
+      - vars/default.yml
+
+    tasks:
+      - name: Install prerequisities
+        apt:
+          name: "{{ item }}"
+          update_cache: yes
+          state: latest
+        loop: [ 'aptitude', 'maven' ]
+
+      - name: Create an application specific group
+        group: 
+          name: safnari
+          state: present
+
+      - name: Create an application specific user
+        user:
+          name: safnari
+          password: ''
+          groups: safnari
+          state: present
+          createhome: yes
+
+      - name: Create source directory
+        file:
+          path: /home/safnari/src
+          state: directory
+          owner: safnari
+          group: safnari
+          mode: "u=rw, g=rwx, o=rwx"
+
+      - name: Downloading the source
+        git:
+          repo: https://github.com/BandwidthOnDemand/nsi-dds.git
+          dest: /home/safnari/src
+
+      - name: Create directory for installation
+        file:
+          path: /home/safnari/nsi-dds
+          state: directory
+          owner: safnari
+          group: safnari
+          mode: "u=rw, g=rwx, o=rwx" 
+
+      - name: Install nsi-dds using Maven
+        command: mvn -f /home/safnari/src/nsi-dds clean install -Dmaven.test.skip=true
+
+      - name: Copy files
+        command: cp -R /home/safnari/src/nsi-dds/config /home/safnari/src/nsi-dds/target/dds.jar /home/safnari/nsi-dds/
+        
+      
