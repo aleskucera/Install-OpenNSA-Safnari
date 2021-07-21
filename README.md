@@ -1,2 +1,2 @@
 # Install-OpenNSA-Safnari
-Ansible scripts for installation of OpenNSA and Safanri
+Ansible scripts for installation of OpenNSA and Safnari
