@@ -1,0 +1,18 @@
+---
+
+# User
+
+app_user: "opennsa"
+user_password: '1234'
+home_path: "/opt/{{ app_user }}" 
+prerequisites: [ 'openssl', 'libssl-dev', 'libssl-doc', 'python-dev', 'python3-virtualenv', 'build-essential', 'postgresql', 'libpq-dev', 'postgresql-contrib', 'python3-psycopg2', 'acl' ]
+postgresql_db: "opennsa-main"
+
+# Packages with repositories
+templates:
+  - { path: 'templates/opennsa_enviroment.j2', name: 'opennsa_enviroment' }
+  - { path: 'templates/opennsa_node.tac.j2', name: 'opennsa_node.tac' }
+  - { path: 'templates/opennsa-example.service.j2', name: 'opennsa-main.service' }
+  - { path: 'templates/opennsa-example.conf.j2', name: 'opennsa-main.conf' }
+  - { path: 'templates/opennsa-example.nrm.j2', name: 'opennsa-main.nrm' }
+
