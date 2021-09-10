@@ -1,0 +1,10 @@
+# Local interfaces (no remote, used to connect servers)
+# type      name            remote                                          label           bandwith    interface   attr
+ethernet    port1           -                                               vlan:10-299     1000        ge01        -
+ethernet    port2           -                                               vlan:10-399     1000        ge02        -
+
+
+
+# Real STPs
+# type      name            remote (network#port(-inprefix|-outprefix)      label           bandwith    interface   attr
+ethernet    line11_12       node12.domain1:topology#line12_11-(in|out)      vlan:10-3999    1000        xe01        -
