@@ -1,20 +1,20 @@
 [service]
-network=node11.domain1
-logfile=/opt/opennsa/logs/node11.log
+network={{ network }}
+logfile={{ logfile }}
 
-user=opennsa
-host=127.0.0.1
-port=9445
+user={{ app_user }}
+host={{ opennsa_host }}
+port={{ opennsa_port }}
 
-database=opennsamain
-dbuser=opennsa
-dbpassword=opennsapwd
-dbhost=127.0.0.1
-tls=false
-rest=false
-remlog=false
-policy=allowhairpin
+database={{ postgres_db }}
+dbuser={{ postgres_user }}
+dbpassword={{ postgres_user_pass }}
+dbhost={{ dbhost }}
+tls={{ tls }}
+rest={{ rest }}
+remlog={{ remlog }}
+policy={{ policy }}
 
-nrmmap=/etc/opennsa/opennsa-main.nrm
+nrmmap={{ nrmmap}}
 
 [dud]

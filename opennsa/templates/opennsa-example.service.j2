@@ -1,20 +1,20 @@
 [Unit]
-Description=OpenNSA node
-After=syslog.target network.target
+Description={{ description }}
+After={{ after }}
 
 [Service]
-Environment=OPENNSA_CONFIGFILE=/etc/opennsa/opennsa-main.conf
-Environment=REMOTE_DEBUG=0
-EnvironmentFile=-/etc/opennsa/opennsa_environment
-ExecStart=/opt/opennsa/venv/bin/twistd \
+Environment=OPENNSA_CONFIGFILE={{ config_file }}
+Environment=REMOTE_DEBUG={{ remote_debug }}
+EnvironmentFile={{ enviroment_file }}
+ExecStart={{ home_path }}/venv/bin/twistd \
     --nodaemon \
     --pidfile= \
-    -y /etc/opennsa/opennsa_node.tac
-WorkingDirectory=/opt/opennsa/repo
-User=opennsa
-Group=opennsa
-Restart=always
+    -y {{ node_file }}
+WorkingDirectory={{ working_directory }}
+User={{ app_user }}
+Group={{ app_user }}
+Restart={{ restart }}
 
 
 [Install]
-WantedBy=multi-user.target
+WantedBy={{ wanted_by }}
