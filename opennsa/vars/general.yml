@@ -1,12 +1,18 @@
 ---
 
-# User
-
-app_user: "opennsa"
-user_password: '1234'
-home_path: "/opt/{{ app_user }}" 
 prerequisites: [ 'openssl', 'libssl-dev', 'libssl-doc', 'python-dev', 'python3-virtualenv', 'build-essential', 'postgresql', 'libpq-dev', 'postgresql-contrib', 'python3-psycopg2', 'acl' ]
-postgresql_db: "opennsa-main"
+
+# General
+app_user: "opennsa"
+home_path: "/opt/{{ app_user }}" 
+config_path: "/etc/{{ app_user }}"
+
+# PostgeSQL
+postgres_user: "{{ app_user }}"
+postgres_db: "{{ app_user }}-main"
+
+# Git repository
+repository: "https://gitlab.geant.org/hazlinsky/opennsa3.git"
 
 # Packages with repositories
 templates:
