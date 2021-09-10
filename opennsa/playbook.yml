@@ -2,17 +2,18 @@
   - hosts: test_servers
     become: true
     vars_files:
-      - vars/default.yml
+      - vars/general.yml
+      - vars/passwords.yml
+      - vars/config.yml
 
     tasks:
        # setup prerequisites
       - name: Install aptitude
         apt: 
-          name: "{{ item }}"
+          name: aptitude
           update_cache: yes 
           state: latest
-        loop: [ 'aptitude' ]
-        tags: [ setup ]
+        tags: [ prerequisites, setup ]
       
       - name: Install prerequisites
         apt:
@@ -20,13 +21,13 @@
           update_cache: yes
           state: latest
         loop: "{{ prerequisites }}"
-        tags: [ setup ]
+        tags: [ prerequisites, setup ]
       
       # Create app specific user
       - name: Create a user
         user: 
           name: "{{ app_user }}"
-          password: "{{ user_password }}"                                  #NEEDS PASSWORD!
+          password: "{{ user_password }}"                              
           state: present
           createhome: yes
           home: "{{ home_path }}"
@@ -36,10 +37,10 @@
       # Download repo
       - name: Download git repo
         git:
-          repo: "https://gitlab.geant.org/hazlinsky/opennsa3.git"
+          repo: "{{ repository }}"
           dest: "{{ home_path }}/repo"
           force: yes
-        tags: [ setup ]
+        tags: [ repo, setup ]
       
       # Setup virtual enviroment
       - name: Create virtualenv and install requirements
@@ -52,7 +53,7 @@
       # Configuration
       - name: Create directory
         file:
-          path: "/etc/opennsa"
+          path: "{{ config_path }}"
           state: directory
           owner: "{{ app_user }}"
           group: "{{ app_user }}"
@@ -62,14 +63,14 @@
       - name: Configuration
         template: 
           src: "{{ item.path }}"
-          dest: "/etc/opennsa/{{ item.name }}"
+          dest: "{{ config_path }}/{{ item.name }}"
         loop: "{{ templates }}"
         tags: [ configuration ]
 
       # PostgreSQL
       - name: Create PostgreSQL database
         postgresql_db:
-          name: "{{ postgresql_db }}"
+          name: "{{ postgres_db }}"
           state: present
         become_user: postgres
         tags: [ PostgreSQL ]
@@ -77,16 +78,16 @@
       - name: Create PostgreSQL user
         postgresql_user:
           state: present
-          name: "{{ app_user }}"
-          password: "{{ user_password }}"
+          name: "{{ postgres_user }}"
+          password: "{{ postgres_user_pass }}"
         become_user: postgres
         tags: [ PostgreSQL ]
 
-      - name: Grant PostgreSQL user to the database
+      - name: Grant privileges to the database
         postgresql_privs:
           type: database
-          database: "{{ postgresql_db }}"
-          roles: "{{ app_user }}"
+          database: "{{ postgres_db }}"
+          roles: "{{ postgres_user }}"
           grant_option: no
           privs: all
         become_user: postgres
@@ -94,7 +95,7 @@
       
       - name: Run queries from SQL script
         community.postgresql.postgresql_query:
-          db: "{{ postgresql_db }}"
+          db: "{{ postgres_db }}"
           path_to_script: "{{ home_path }}/repo/opennsa/datafiles/schema.sql"
           as_single_query: yes
         become_user: postgres
@@ -105,6 +106,7 @@
         service: 
           name: postgresql 
           state: restarted
+        tags: [ PostgreSQL ]
       
 
       
