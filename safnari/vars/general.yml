@@ -1,0 +1,22 @@
+---
+
+prerequisites: [ 'apache2', 'maven', 'zip', 'postgresql', 'openjdk-8-jdk', 'sbt' ]
+
+# General
+app_user: "safnari" 
+home_path: "/home/{{ app_user }}"
+
+# Apache
+apache2_modules: ['ssl', 'proxy', 'proxy_http', 'proxy_balancer', 'lbmethod_byrequests', 'proxy_ajp', 'rewrite', 'deflate', 'headers', 'proxy_balancer', 'proxy_connect', 'proxy_html']
+
+# Packages with repositories
+packages:
+  - { repository: 'https://github.com/BandwidthOnDemand/nsi-dds.git', name: 'nsi-dds' }
+  - { repository: 'https://github.com/BandwidthOnDemand/nsi-safnari.git', name: 'nsi-safnari' }
+  - { repository: 'https://github.com/BandwidthOnDemand/nsi-pce.git', name: 'nsi-pce' }
+  - { repository: 'https://gitlab.geant.org/hazlinsky/opennsa3.git', name: 'opennsa3' }
+
+
+#SAFNARI
+postgres_user: nsi-safnari-user
+postgres_databases: [ 'nsi-safnari-dev', 'nsi-safnari-test']
