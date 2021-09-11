@@ -39,7 +39,6 @@
         git:
           repo: "{{ repository }}"
           dest: "{{ home_path }}/repo"
-          force: yes
         tags: [ repo, setup ]
       
       # Setup virtual enviroment
