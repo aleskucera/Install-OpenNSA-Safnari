@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tns:dds xmlns:tns="http://schemas.es.net/nsi/2014/03/dds/configuration"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- we need to set this to the uPA's NSA ID so that the local networks are discovered correctly -->
+    <nsaId>{{ nsaId }}</nsaId>
+    <documents>{{ documents }}</documents>
+    <cache>{{ cache }}</cache>
+    <repository>{{ repository }}</repository>
+    <expiryInterval>{{ expiryInterval }}</expiryInterval>
+    <baseURL>{{ baseURL }}</baseURL>
+
+    <!-- DDS service interfaces. -->
+    <peerURL type="application/vnd.ogf.nsi.dds.v1+xml">{{ peerURL }}</peerURL>
+
+</tns:dds>
