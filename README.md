@@ -8,7 +8,8 @@ To install Opennsa, nsi-safnari, nsi-dds and nsi-pce we will follow these steps:
 *Run ansible playbook
 # Install software prerequisites
 The script is written in **Ansible**. To install ansible on Ubuntu run:
-'sudo apt update
-sudo apt install ansible' 
+
+    sudo apt update
+    sudo apt install ansible 
 
 
