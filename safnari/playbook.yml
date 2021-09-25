@@ -82,16 +82,48 @@
           recurse: yes
         tags: [ repo, setup ]
 
+      # Safnari PostgreSQL
+      - name: Create PostgreSQL databases
+        postgresql_db:
+          name: "{{ item }}"
+          state: present
+        become_user: postgres
+        loop: "{{ postgres_databases }}"
+        tags: [ PostgreSQL ]
+
+      - name: Create PostgreSQL user
+        postgresql_user:
+          state: present
+          name: "{{ postgres_user }}"
+          password: "{{ postgres_user_pass }}"
+        become_user: postgres
+        tags: [ PostgreSQL ]
+
+      - name: Grant privileges to the databases
+        postgresql_privs:
+          type: database
+          database: "{{ item }}"
+          roles: "{{ postgres_user }}"
+          grant_option: no
+          privs: all
+        become_user: postgres
+        loop: "{{ postgres_databases }}"
+        tags: [ PostgreSQL ]
+      
+      #Install nsi-dds and nsi-pce
+      - name: Install nsi-dds and nsi-pce
+        command: chdir={{ home_path }}/{{ item }}/ mvn clean install -Dmaven.test.skip=true
+        loop: [ 'nsi-dds', 'nsi-pce' ]
+        tags: [ installation ]
+
     handlers:
       - name: Restart Apache
         service:
           name: apache2
           state: restarted
-      tags: [ apache2, setup ]
 
       - name: Restart PostgreSQL
         service: 
           name: postgresql 
           state: restarted
-        tags: [ PostgreSQL, setup ]
       

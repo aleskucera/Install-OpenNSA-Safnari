@@ -1,6 +1,6 @@
 ---
 
-prerequisites: [ 'apache2', 'maven', 'zip', 'postgresql', 'openjdk-8-jdk', 'sbt' ]
+prerequisites: [ 'apache2', 'maven', 'zip', 'postgresql', 'openjdk-8-jdk', 'sbt', 'acl', 'libpq-dev', 'postgresql-contrib', 'python3-psycopg2' ]
 
 # General
 app_user: "safnari" 
