@@ -16,9 +16,9 @@ repository: "https://gitlab.geant.org/hazlinsky/opennsa3.git"
 
 # Packages with repositories
 templates:
-  - { path: 'templates/opennsa_enviroment.j2', name: 'opennsa_enviroment' }
+  - { path: 'templates/opennsa_environment.j2', name: 'opennsa_environment' }
   - { path: 'templates/opennsa_node.tac.j2', name: 'opennsa_node.tac' }
-  - { path: 'templates/opennsa-example.service.j2', name: 'opennsa-main.service' }
-  - { path: 'templates/opennsa-example.conf.j2', name: 'opennsa-main.conf' }
-  - { path: 'templates/opennsa-example.nrm.j2', name: 'opennsa-main.nrm' }
+  - { path: 'templates/opennsa-example.service.j2', name: 'opennsa3.service' }
+  - { path: 'templates/opennsa-example.conf.j2', name: 'opennsa3.conf' }
+  - { path: 'templates/opennsa-example.nrm.j2', name: 'opennsa3-prex.nrm' }
 

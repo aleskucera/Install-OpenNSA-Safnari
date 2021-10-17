@@ -26,10 +26,10 @@ nrmmap: "{{ config_path }}/opennsa-main.nrm"
 
 # .service
 
-description: "OpenNSA node"
+description: "OpenNSA3 node"
 after: "syslog.target network.target"
 
-config_file: "{{ config_path }}/opennsa-main.conf"
+config_file: "{{ config_path }}/opennsa3.conf"
 remote_debug: "0"
 enviroment_file: "{{ config_path }}/opennsa_environment"
 node_file: "{{ config_path }}/opennsa_node.tac"

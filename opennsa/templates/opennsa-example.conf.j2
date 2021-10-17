@@ -1,20 +1,60 @@
 [service]
-network={{ network }}
-logfile={{ logfile }}
+domain=nsi.cesnet.cz:2021
+logfile=/opt/opennsa/opennsa3.log
 
-user={{ app_user }}
-host={{ opennsa_host }}
-port={{ opennsa_port }}
+user=opennsa
+host=nsi.vm.cesnet.cz
+port=9443
 
-database={{ postgres_db }}
-dbuser={{ postgres_user }}
-dbpassword={{ postgres_user_pass }}
-dbhost={{ dbhost }}
-tls={{ tls }}
-rest={{ rest }}
-remlog={{ remlog }}
-policy={{ policy }}
+database=opennsa3
+dbuser=opennsa
+dbpassword=onsa.21
+tls=true
+#rest=true
 
-nrmmap={{ nrmmap}}
 
-[dud]
+#remlog=true
+#remloghost=195.113.161.169
+#remlogport=9090
+
+# Private key location
+key=/etc/ssl/private/nsi_vm_cesnet_cz.key
+
+# Certificate location
+certificate=/etc/ssl/certs/nsi_vm_cesnet_cz.pem
+
+# Path to CA certificates
+certdir=/etc/ssl/certs
+
+# Don't verify TLS certs
+verify=true
+
+# Comma-seperated list of hosts that are allowed to make request to OpenNSA.
+#allowedhosts=opennsa.cesnet.cz
+
+#httptimeout=570
+
+policy=allowhairpin
+
+#peers=
+
+[dud:topology-clex]
+nrmmap=/etc/opennsa/opennsa3-prex.nrm
+
+#[junosex:topology-clex]
+#nrmmap=/etc/opennsa/opennsa3-prex.nrm
+
+#host=195.113.205.230
+#user=opennsa
+#fingerprint=17:e1:3a:30:ce:de:7a:16:ea:d1:3e:29:de:1e:1b:3a
+#fingerprint=50:46:dd:74:58:38:88:67:b1:af:4d:8a:86:60:17:0f
+#publickey=/opt/opennsa/sshclex/opennsa_rsa.key.pub
+#privatekey=/opt/opennsa/sshclex/opennsa_rsa.key
+
+
+# descriptions="SRV_GCS CUSTOMER GEANT | {description} | UNIT CONFIGURATION HAS BEEN SYSTEM GENERATED"
+
+
+
+
+

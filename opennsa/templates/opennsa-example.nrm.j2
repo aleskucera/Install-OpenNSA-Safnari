@@ -1,10 +1,9 @@
-# Local interfaces (no remote, used to connect servers)
-# type      name            remote                                          label           bandwith    interface   attr
-ethernet    port1           -                                               vlan:10-299     1000        ge01        -
-ethernet    port2           -                                               vlan:10-399     1000        ge02        -
-
-
-
-# Real STPs
-# type      name            remote (network#port(-inprefix|-outprefix)      label           bandwith    interface   attr
-ethernet    line11_12       node12.domain1:topology#line12_11-(in|out)      vlan:10-3999    1000        xe01        -
+ethernet clpra0-0-20 - vlan:1700-1800 10000 xe-0/0/20 -
+ethernet clpra0-0-21 - vlan:1700-1800 10000 xe-0/0/21 -
+#ethernet pra-mx104 - vlan:1700-1800 10000 xe-0/0/22 -
+#ethernet prg.gcs 1-pra-cz.gcs.geant.net:2019:topology#prex.cnsi.cesnet.cz-(in|out) vlan:1700-1800 10000 xe-0/0/23 -
+#ethernet pra.cnsi.cesnet.cz pra.cnsi.cesnet.cz:2017:topology#prex.cnsi.cesnet.cz-(in|out) vlan:1700-1800 10000 xe-0/0/22 -
+#ethernet brex.cnsi.cesnet.cz brex.cnsi.cesnet.cz:topology#prex.cnsi.cesnet.cz-(in|out) vlan:2201-2298 10000 xe-0/1/0 -
+#ethernet netherlight netherlight.net:2013:production7#czechlight-1-(in|out) vlan:1779-1799 10000 xe-0/0/1 -
+#ethernet ga upa.test.geant.test:2017:topology#cesnet-(in|out) vlan:1801-1820 10000 xe-0/0/23 -
+#ethernet nlt upa.nlt.test:2017:topology#cesnet-(in|out) vlan:1821-1840 10000 xe-0/0/23 -
