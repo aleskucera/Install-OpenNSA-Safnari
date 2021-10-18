@@ -1,5 +1,6 @@
 # Description
 This script is written for deployment of OpenNSA and Safnari on Ubuntu 20.04 and consists of three main parts - templates, variables and playbook. **Templates** directory contains all important configuration templates and **should be changed only if necessary**. The **vars**  directory is the only directory, that is meant for making changes. General variables are stored in `vars\general.yml` file and changing this file is not needed. However the `vars\passwords.yml` must be changed and it is recommended to secure this file properly as described later in the text. The last file `vars\config.yml` stores all the variables, that are used in configuration templates.
+
 **Playbook.yml** file is ansible script, that consists of these steps:
 * Sets up prerequisites for OpenNSA
 * Creates app specific user
@@ -21,7 +22,7 @@ The script is written in **Ansible**. To install Ansible on Ubuntu run:
     sudo apt update
     sudo apt install ansible 
 
-Next, we need to install additional community modeles, that script uses
+Next, we need to install additional community modules, that script uses
 
     ansible-galaxy collection install community.postgresql
     ansible-galaxy collection install community.general
