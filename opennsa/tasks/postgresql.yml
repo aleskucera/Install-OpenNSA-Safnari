@@ -1,0 +1,30 @@
+---
+# PostgreSQL
+- name: Create PostgreSQL database
+  postgresql_db:
+    name: "{{ postgres_db }}"
+    state: present
+  become_user: postgres
+
+- name: Create PostgreSQL user
+  postgresql_user:
+    state: present
+    name: "{{ postgres_user }}"
+    password: "{{ postgres_user_pass }}"
+  become_user: postgres
+
+- name: Grant privileges to the database
+  postgresql_privs:
+    type: database
+    database: "{{ postgres_db }}"
+    roles: "{{ postgres_user }}"
+    grant_option: no
+    privs: all
+  become_user: postgres
+
+- name: Run queries from SQL script
+  community.postgresql.postgresql_query:
+    db: "{{ postgres_db }}"
+    path_to_script: "{{ home_path }}/repo/opennsa/datafiles/schema.sql"
+    as_single_query: yes
+  become_user: postgres

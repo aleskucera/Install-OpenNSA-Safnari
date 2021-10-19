@@ -7,125 +7,27 @@
       - vars/config.yml
 
     tasks:
-       # setup prerequisites
-      - name: Install aptitude
-        apt: 
-          name: aptitude
-          update_cache: yes 
-          state: latest
-        tags: [ prerequisites, setup ]
-      
-      - name: Install prerequisites
-        apt:
-          name: "{{ item }}"
-          update_cache: yes
-          state: latest
-        loop: "{{ prerequisites }}"
-        tags: [ prerequisites, setup ]
-      
-      # Create app specific user
-      - name: Create a user
-        user: 
-          name: "{{ app_user }}"
-          group: "{{ app_user }}", ssl-cert
-          password: "{{ user_password }}"                              
-          state: present
-          createhome: yes
-          home: "{{ home_path }}"
-          shell: /bin/bash
-        tags: [ user, setup ]
-      
-      # Download repo
-      - name: Download git repo
-        git:
-          repo: "{{ repository }}"
-          dest: "{{ home_path }}/repo"
-        tags: [ repo, setup ]
-      
-      # Setup virtual enviroment
-      - name: Create virtualenv and install requirements
-        pip:
-          requirements: "{{ home_path }}/repo/requirements.txt"
-          virtualenv:  "{{ home_path }}/venv"
-          virtualenv_python: python3
-        tags: [ setup, virtualenv ]
+      - include_tasks: tasks/prerequisites_setup.yml
+        tags: [ prerequisites ]
 
-      # Configuration
-      - name: Create directory
-        file:
-          path: "{{ config_path }}"
-          state: directory
-          owner: "{{ app_user }}"
-          group: "{{ app_user }}"
-          mode: '0755'
+      - include_tasks: tasks/create_user.yml
+        tags: [ app_user ]
+
+      - include_tasks: tasks/download_repos.yml
+        tags: [ repos ]
+
+      - include_tasks: tasks/venv_setup.yml
+        tags: [ virtualenv ]
+
+      - include_tasks: tasks/configuration.yml
         tags: [ configuration ]
 
-      - name: Configuration
-        template: 
-          src: "{{ item.path }}"
-          dest: "{{ config_path }}/{{ item.name }}"
-        loop: "{{ templates }}"
-        tags: [ configuration ]
-
-      # PostgreSQL
-      - name: Create PostgreSQL database
-        postgresql_db:
-          name: "{{ postgres_db }}"
-          state: present
-        become_user: postgres
+      - include_tasks: tasks/postgresql.yml
         tags: [ PostgreSQL ]
 
-      - name: Create PostgreSQL user
-        postgresql_user:
-          state: present
-          name: "{{ postgres_user }}"
-          password: "{{ postgres_user_pass }}"
-        become_user: postgres
-        tags: [ PostgreSQL ]
-
-      - name: Grant privileges to the database
-        postgresql_privs:
-          type: database
-          database: "{{ postgres_db }}"
-          roles: "{{ postgres_user }}"
-          grant_option: no
-          privs: all
-        become_user: postgres
-        tags: [ PostgreSQL ]
+      - include_tasks: tasks/ssl_setup.yml
+        tags: [ SSL ]
       
-      - name: Run queries from SQL script
-        community.postgresql.postgresql_query:
-          db: "{{ postgres_db }}"
-          path_to_script: "{{ home_path }}/repo/opennsa/datafiles/schema.sql"
-          as_single_query: yes
-        become_user: postgres
-        tags: [ PostgreSQL ]
-
-    # Setup ssh certificate
-      - name: Make sure ssl directories exist
-        file:
-          state: directory
-          path: /etc/ssl/{{ item }}
-        loop: ['certs', 'private']
-        tags: [ SSL ]
-
-      - name: Copy certificate
-        copy: 
-          src: ssl_certificates/certificate
-          dest: /etc/ssl/certs/nsi_vm_cesnet_cz.pem
-          group: ssl-cert
-          mode: '0644'
-        tags: [ SSL ]
-
-      - name: Copy private key
-        copy: 
-          src: ssl_certificates/private_key.key
-          dest: /etc/ssl/private/nsi_vm_cesnet_cz.key
-          decrypt: yes 
-          group: ssl-cert
-          mode: '0640'
-        tags: [ SSL ]
-
     handlers:
       - name: Restart PostgreSQL
         service: 

@@ -1,0 +1,18 @@
+---
+# Create app specific user
+- name: Create group
+  group:
+    name: "{{ app_user }}"
+    state: present
+
+- name: Create a user
+  user: 
+    name: "{{ app_user }}"
+    groups: 
+      - "{{ app_user }}"
+      - ssl-cert
+    password: "{{ user_password }}"                              
+    state: present
+    createhome: yes
+    home: "{{ home_path }}"
+    shell: /bin/bash

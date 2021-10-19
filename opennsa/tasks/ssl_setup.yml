@@ -1,0 +1,16 @@
+---
+# Setup ssh certificate
+- name: Copy certificate
+  copy: 
+    src: "{{ certificate_src }}"
+    dest: "{{ certificate_dest }}"
+    group: ssl-cert
+    mode: '0644'
+
+- name: Copy private key
+  copy: 
+    src: "{{ key_src }}"
+    dest: "{{ key_dest }}"
+    decrypt: yes 
+    group: ssl-cert
+    mode: '0640'

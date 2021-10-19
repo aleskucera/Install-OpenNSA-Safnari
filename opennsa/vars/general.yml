@@ -22,3 +22,9 @@ templates:
   - { path: 'templates/opennsa-example.conf.j2', name: 'opennsa3.conf' }
   - { path: 'templates/opennsa-example.nrm.j2', name: 'opennsa3-prex.nrm' }
 
+# SSH setup
+certificate_src: ssl/certificate
+key_src: ssl/private_key.key
+certificate_dest: /etc/ssl/certs/nsi_vm_cesnet_cz.pem
+key_dest: /etc/ssl/private/nsi_vm_cesnet_cz.key
+

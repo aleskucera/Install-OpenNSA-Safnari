@@ -1,0 +1,15 @@
+---
+# Configuration
+- name: Create directory
+  file:
+    path: "{{ config_path }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
+
+- name: Configuration
+  template: 
+    src: "{{ item.path }}"
+    dest: "{{ config_path }}/{{ item.name }}"
+  loop: "{{ templates }}"

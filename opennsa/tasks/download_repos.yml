@@ -1,0 +1,6 @@
+---
+# Download repo
+- name: Download git repo
+  git:
+    repo: "{{ repository }}"
+    dest: "{{ home_path }}/repo"
