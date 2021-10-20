@@ -7,14 +7,8 @@
       - vars/config.yml
 
     tasks:
-      - include_tasks: tasks/prerequisites_setup.yml
-        tags: [ prerequisites ]
-
-      - include_tasks: tasks/create_user.yml
-        tags: [ app_user ]
-
-      - include_tasks: tasks/download_repos.yml
-        tags: [ repos ]
+      - include_tasks: tasks/setup.yml
+        tags: [ setup, prerequisites, app_user, download_repos ]
 
       - include_tasks: tasks/venv_setup.yml
         tags: [ virtualenv ]
@@ -23,10 +17,10 @@
         tags: [ configuration ]
 
       - include_tasks: tasks/postgresql.yml
-        tags: [ PostgreSQL ]
+        tags: [ postgresql ]
 
       - include_tasks: tasks/ssl_setup.yml
-        tags: [ SSL ]
+        tags: [ ssl ]
       
     handlers:
       - name: Restart PostgreSQL

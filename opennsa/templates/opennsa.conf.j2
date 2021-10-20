@@ -2,13 +2,13 @@
 domain=nsi.cesnet.cz:2021
 logfile=/opt/opennsa/opennsa3.log
 
-user=opennsa
-host=nsi.vm.cesnet.cz
+user={{ app_user }}
+host={{ host }}
 port=9443
 
-database=opennsa3
-dbuser=opennsa
-dbpassword=onsa.21
+database={{ postgres_db }}
+dbuser={{ postgres_user }}
+dbpassword={{ postgres_user_pass }}
 tls=true
 #rest=true
 
@@ -18,13 +18,13 @@ tls=true
 #remlogport=9090
 
 # Private key location
-key=/etc/ssl/private/nsi_vm_cesnet_cz.key
+key={{ key_dest }}
 
 # Certificate location
-certificate=/etc/ssl/certs/nsi_vm_cesnet_cz.pem
+certificate={{ certificate_dest }}
 
 # Path to CA certificates
-certdir=/etc/ssl/certs
+certdir={{ cert_dir }}
 
 # Don't verify TLS certs
 verify=true
@@ -34,12 +34,12 @@ verify=true
 
 #httptimeout=570
 
-policy=allowhairpin
+policy={{ policy }}
 
 #peers=
 
 [dud:topology-clex]
-nrmmap=/etc/opennsa/opennsa3-prex.nrm
+nrmmap={{ config_path }}/{{ opennsa_nrm }}
 
 #[junosex:topology-clex]
 #nrmmap=/etc/opennsa/opennsa3-prex.nrm

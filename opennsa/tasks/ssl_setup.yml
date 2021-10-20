@@ -6,6 +6,7 @@
     dest: "{{ certificate_dest }}"
     group: ssl-cert
     mode: '0644'
+  tags: [ ssl ]
 
 - name: Copy private key
   copy: 
@@ -14,3 +15,4 @@
     decrypt: yes 
     group: ssl-cert
     mode: '0640'
+  tags: [ ssl ]

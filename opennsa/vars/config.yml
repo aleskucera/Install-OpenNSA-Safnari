@@ -1,39 +1,25 @@
 ---
+#opennsa.cesnet.cz
 
 # Enviroment
 opennsa: "{{ home_path }}/repo"
 opennsa_venv: "{{ home_path }}/venv"
 python_path: "{{ home_path }}/repo"
 
-# Node
-
 # .conf
-network: node11.domain1
-logfile: "{{ home_path }}/logs/node11.log"
-
-opennsa_host: "127.0.0.1"
-opennsa_port: "9445"
-
-dbhost: "127.0.0.1"
-tls: "false"
-rest: "false"
-remlog: "false"
-policy: "allowhairpin"
-
-nrmmap: "{{ config_path }}/opennsa-main.nrm"
-
-# .nrm
+domain: "nsi.cesnet.cz:2021" #
+logfile: "/opt/opennsa/opennsa3.log" # 
+host: "nsi.vm.cesnet.cz"
+policy: "allowhairpin" 
+nrmmap: "/etc/opennsa/opennsa3-prex.nrm"
 
 # .service
-
 description: "OpenNSA3 node"
 after: "syslog.target network.target"
-
 config_file: "{{ config_path }}/opennsa3.conf"
 remote_debug: "0"
 enviroment_file: "{{ config_path }}/opennsa_environment"
 node_file: "{{ config_path }}/opennsa_node.tac"
 working_directory: "{{ home_path }}/repo"
 restart: "always"
-
 wanted_by: "multi-user.target"

@@ -5,6 +5,7 @@
     name: "{{ postgres_db }}"
     state: present
   become_user: postgres
+  tags: [ postgresql ]
 
 - name: Create PostgreSQL user
   postgresql_user:
@@ -12,6 +13,7 @@
     name: "{{ postgres_user }}"
     password: "{{ postgres_user_pass }}"
   become_user: postgres
+  tags: [ postgresql ]
 
 - name: Grant privileges to the database
   postgresql_privs:
@@ -21,6 +23,7 @@
     grant_option: no
     privs: all
   become_user: postgres
+  tags: [ postgresql ]
 
 - name: Run queries from SQL script
   community.postgresql.postgresql_query:
@@ -28,3 +31,4 @@
     path_to_script: "{{ home_path }}/repo/opennsa/datafiles/schema.sql"
     as_single_query: yes
   become_user: postgres
+  tags: [ postgresql ]

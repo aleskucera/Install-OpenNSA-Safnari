@@ -1,0 +1,43 @@
+---
+# setup prerequisites
+- name: Install aptitude
+  apt: 
+    name: aptitude
+    update_cache: yes 
+    state: latest
+  tags: [ setup, prerequisites ]
+
+- name: Install prerequisites
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: latest
+  loop: "{{ prerequisites }}"
+  tags: [ setup, prerequisites ]
+
+# Create app specific user
+- name: Create group
+  group:
+    name: "{{ app_user }}"
+    state: present
+  tags: [ setup, app_user ]
+
+- name: Create a user
+  user: 
+    name: "{{ app_user }}"
+    groups: 
+      - "{{ app_user }}"
+      - "ssl-cert"
+    password: "{{ user_password }}"                              
+    state: present
+    createhome: yes
+    home: "{{ home_path }}"
+    shell: /bin/bash
+  tags: [ setup, app_user ]
+
+# Download repo
+- name: Download git repo
+  git:
+    repo: "{{ repository }}"
+    dest: "{{ home_path }}/repo"
+  tags: [ setup, download_repos ]
