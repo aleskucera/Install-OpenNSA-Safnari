@@ -7,8 +7,8 @@ opennsa_venv: "{{ home_path }}/venv"
 python_path: "{{ home_path }}/repo"
 
 # .conf
-domain: "nsi.cesnet.cz:2021" #
-logfile: "/opt/opennsa/opennsa3.log" # 
+domain: "nsi.cesnet.cz:2021" 
+logfile: "/opt/opennsa/opennsa3.log" 
 host: "opennsa.cesnet.cz"
 policy: "allowhairpin" 
 nrmmap: "/etc/opennsa/opennsa3-prex.nrm"

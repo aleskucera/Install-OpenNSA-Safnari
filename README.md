@@ -30,7 +30,7 @@ Next, we need to install additional community modules, that script uses
 ## Downloading the source
 After we download prerequisites we go to the directory, where we want to store the script and download the git repository by
 
-    git clone https://github.com/aleskucera/Install-OpenNSA-Safnari.git
+    git clone https://gitlab.cesnet.cz/hazlinsky/crp-ansible-test.git
     
 ## Ansible setup
 Ansible uses ssh for connection to host devices. For successful launch of the script we presume following:
@@ -48,6 +48,24 @@ To specify on which devices should be software installed open `hosts` file. Then
     [servers:vars]
     ansible_python_interpreter=/usr/bin/python3
     ansible_user=user 
+
+The `[servers]` specifies group of servers. You can create another group for example `[test_servers]` with IP's and variables below. If you would like to run ansible playbook on those servers, you have to change `hosts: ` variable in `opennsa\playbook.yml`. So now header of `opennsa\playbook.yml` should look like that
+
+    --- 
+        - hosts: test_servers
+            become: true
+            vars_files:
+            - vars/general.yml
+            - vars/passwords.yml
+            - vars/config.yml
+
+## Update variable files
+### General variables
+General varibles are stored in `opennsa\vars\general.yml` and changing them is not recommended.
+### Config variables
+
+### Passwords
+All passwords are stored in `opennsa/vars/password.yml` file. `ansible_become_pass` is password for Ansible user to use `sudo` privileges, `user_password` is password for app specific user which script makes and `postgres_user_pass` is password for Postgre SQL user.
     
 ## Encrypting passwords
 For installation the script uses sensible data such as sudo password, app user password and PostgreSQL user password stored in `vars/passwords.yml` In order to secure this kind of data Ansible uses Ansible-vault. But before we secure our data we should change default passwords in `vars/passwords.yml`. Then we encrypt this file by command 
@@ -62,5 +80,15 @@ The most secure way is to remember this password, but if we are not sure of it, 
 
     echo "vault-password" > vars/password_file
 
+## Run Ansible playbook
+After everything is ready you can run ansible script by
+
+    ansible-playbook opennsa/playbook.yml
+
+if you encrypted passwords or certificate with ansible vault you have to add an argument `--ask-vault-pass`.
+
+    ansible-playbook opennsa/playbook,yml --ask-vault-pass
+
+It is critical, that you run this command in the same folder where is `ansible.cfg` and `hosts` file stored.
 
 
