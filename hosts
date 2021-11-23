@@ -3,7 +3,7 @@
 
 [test_servers:vars]
 ansible_python_interpreter=/usr/bin/python3
-ansible_user=user
+ansible_user=ales
 
 [cesnet_servers]
 opennsa.cesnet.cz

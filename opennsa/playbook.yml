@@ -1,5 +1,5 @@
 --- 
-  - hosts: cesnet_servers
+  - hosts: test_servers
     become: true
     vars_files:
       - vars/general.yml
