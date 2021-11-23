@@ -1,7 +1,2 @@
-questions
-notes
-test_default.yml
-test_playbook.yml
-ansible.cfg
-hosts
 opennsa/ssl/opennsa-cesnet-cz-key.pem
+hosts_test
