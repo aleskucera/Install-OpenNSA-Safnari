@@ -15,7 +15,7 @@ postgres_db: "{{ app_user }}-main"
 repository: "https://gitlab.geant.org/hazlinsky/opennsa3.git"
 
 # Configuration files
-opennsa_enviroment: "opennsa_environment"
+opennsa_environment: "opennsa_environment"
 opennsa_tac: "opennsa_node.tac"
 opennsa_service: "opennsa3.service"
 opennsa_conf: "opennsa3.conf"
