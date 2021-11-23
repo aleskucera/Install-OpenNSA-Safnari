@@ -15,3 +15,24 @@
     dest: "{{ config_path }}/{{ item.name }}"
   loop: "{{ templates }}"
   tags: [ configuration ]
+
+- name: Create symlink
+  file: 
+    src: "{{ config_path }}/{{ opennsa_service }}"
+    dest: /etc/systemd/system/opennsa.service
+    state: link 
+    owner: root
+    group: root
+  tags: [ configuration ]
+
+- name: Reload daemon
+  systemd: 
+    daemon_reload: yes
+  tags: [ configuration ]
+
+- name: Start opennsa service
+  systemd:
+    name: opennsa
+    enabled: yes
+    state: started
+  tags: [ configuration ]
