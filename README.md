@@ -1,20 +1,10 @@
-# Description
-This script is written for deployment of OpenNSA and Safnari on Ubuntu 20.04 and consists of three main parts - templates, variables and playbook. **Templates** directory contains all important configuration templates and **should be changed only if necessary**. The **vars**  directory is the only directory, that is meant for making changes. General variables are stored in `vars\general.yml` file and changing this file is not needed. However the `vars\passwords.yml` must be changed and it is recommended to secure this file properly as described later in the text. The last file `vars\config.yml` stores all the variables, that are used in configuration templates.
-
-**Playbook.yml** file is ansible script, that consists of these steps:
-* Sets up prerequisites for OpenNSA
-* Creates app specific user
-* Downloads OpenNSA repository
-* Sets up virtual environment for OpenNSA
-* Configures OpenNSA
-* Creates PostgreSQL user and database
 # Installation of Opennsa and Safnari
 To install Opennsa, nsi-safnari, nsi-dds and nsi-pce we will follow these steps:
 * Install software prerequisites
 * Download the source
 * Setup ansible
 * Update variable files
-* Encrypt passwords for better security
+* Secure sensitive data
 * Run ansible playbook
 ## Install software prerequisites
 The script is written in **Ansible**. To install Ansible on Ubuntu run:
@@ -31,7 +21,7 @@ Next, we need to install additional community modules, that script uses
 After we download prerequisites we go to the directory, where we want to store the script and download the git repository by
 
     git clone https://gitlab.cesnet.cz/hazlinsky/crp-ansible-test.git
-    
+
 ## Ansible setup
 Ansible uses ssh for connection to host devices. For successful launch of the script we presume following:
 
@@ -60,32 +50,30 @@ The `[servers]` specifies group of servers. You can create another group for exa
             - vars/config.yml
 
 ## Update variable files
+
 ### General variables
 General varibles are stored in `opennsa\vars\general.yml` and changing them is not recommended.
+### Passwords
+The most secure way to set up passwords is through `secure_config.sh`. More about this is in section [Secure sensitive data](#secure-sensitive-data).
 ### Config variables
 
-### Passwords
-All passwords are stored in `opennsa/vars/password.yml` file. `ansible_become_pass` is password for Ansible user to use `sudo` privileges, `user_password` is password for app specific user which script makes and `postgres_user_pass` is password for Postgre SQL user.
-    
-## Encrypting passwords
-For installation the script uses sensible data such as sudo password, app user password and PostgreSQL user password stored in `vars/passwords.yml` In order to secure this kind of data Ansible uses Ansible-vault. But before we secure our data we should change default passwords in `vars/passwords.yml`. Then we encrypt this file by command 
+## Secure sensitive data
+For security reasons it's recommended to configure and encrypt sensitive data with `secure_config.sh`. 
 
-    ansible-vault encrypt vars/passwords.yml
+In first part you will be asked to enter **ansible_become_pass** which is password for Ansible user to use `sudo` privileges, **user_password** is password for app specific user which script makes and **postgres_user_pass** is password for Postgre SQL user.
 
-Ansible asks us for vault password, which we will have to use everytime we want to access our passwords. If we ever want to change the password we can do that by 
+In the second part you can encrypt your password file and private key with Ansible Vault. You can always decrypt these files by
 
-    ansible-vault rekey vars/passwords.yml
+    ansible-vault decrypt ./opennsa/vars/passwords.yml ./opennsa/ssl/private_key.pem
 
-The most secure way is to remember this password, but if we are not sure of it, we can store this password to the file and automate the process of authentication to ansible-vault. Just change `"vault-password"` to your password and save it to desired path in your computer.
-
-    echo "vault-password" > vars/password_file
+By default you have to remember Ansible Vault password, but you can use more advanced features described here: https://docs.ansible.com/ansible/latest/user_guide/vault.html.
 
 ## Run Ansible playbook
 After everything is ready you can run ansible script by
 
     ansible-playbook opennsa/playbook.yml
 
-if you encrypted passwords or certificate with ansible vault you have to add an argument `--ask-vault-pass`.
+if you encrypted passwords or certificate with Ansible Vault you have to add an argument `--ask-vault-pass`.
 
     ansible-playbook opennsa/playbook,yml --ask-vault-pass
 
