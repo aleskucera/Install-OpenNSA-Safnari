@@ -28,7 +28,7 @@
     groups: 
       - "{{ app_user }}"
       - "ssl-cert"
-    password: "{{ user_password }}"                              
+    password: "{{ user_password_hashed }}"                              
     state: present
     createhome: yes
     home: "{{ home_path }}"
