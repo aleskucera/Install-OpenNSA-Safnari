@@ -5,6 +5,7 @@
     name: "{{ postgres_db }}"
     state: present
   become_user: postgres
+  register: db_state
   tags: [ postgresql ]
 
 - name: Create PostgreSQL user
@@ -31,4 +32,5 @@
     path_to_script: "{{ home_path }}/repo/opennsa/datafiles/schema.sql"
     as_single_query: yes
   become_user: postgres
+  when: db_state.changed
   tags: [ postgresql ]

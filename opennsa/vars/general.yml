@@ -32,7 +32,7 @@ templates:
 # SSL setup
 cert_dir: /etc/ssl/certs
 certificate_src: ssl/certificate.pem
-key_src: ssl/opennsa-cesnet-cz-key.pem
+key_src: ssl/opennsa-cesnet-cz-key2.pem
 certificate_dest: /etc/ssl/certs/nsi_vm_cesnet_cz.pem
 key_dest: /etc/ssl/private/nsi_vm_cesnet_cz.key
 

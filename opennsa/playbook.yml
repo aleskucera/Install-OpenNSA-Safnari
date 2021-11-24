@@ -12,15 +12,15 @@
 
       - include_tasks: tasks/venv_setup.yml
         tags: [ virtualenv ]
+      
+      - include_tasks: tasks/ssl_setup.yml
+        tags: [ ssl ]
 
       - include_tasks: tasks/configuration.yml
         tags: [ configuration ]
 
       - include_tasks: tasks/postgresql.yml
         tags: [ postgresql ]
-
-      - include_tasks: tasks/ssl_setup.yml
-        tags: [ ssl ]
       
     handlers:
       - name: Restart PostgreSQL

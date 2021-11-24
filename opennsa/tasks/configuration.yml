@@ -33,6 +33,5 @@
 - name: Start opennsa service
   systemd:
     name: opennsa
-    enabled: yes
     state: started
   tags: [ configuration ]
