@@ -1,0 +1,9 @@
+---
+# PostgreSQL
+- name: Create PostgreSQL user
+  postgresql_user:
+    state: present
+    name: "{{ postgres_user }}"
+    password: "{{ postgres_user_pass_hashed }}"
+  become_user: postgres
+  tags: [ postgresql ]

@@ -1,0 +1,16 @@
+---
+# setup prerequisites
+- name: Install aptitude
+  apt: 
+    name: aptitude
+    update_cache: yes 
+    state: latest
+  tags: [ setup, prerequisites ]
+
+- name: Install prerequisites
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: latest
+  loop: "{{ prerequisites }}"
+  tags: [ setup, prerequisites ]

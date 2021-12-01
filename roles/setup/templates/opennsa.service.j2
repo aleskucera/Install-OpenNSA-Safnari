@@ -1,0 +1,20 @@
+[Unit]
+Description={{ description }}
+After={{ after }}
+
+[Service]
+Environment=OPENNSA_CONFIGFILE={{ config_file }}
+Environment=REMOTE_DEBUG={{ remote_debug }}
+EnvironmentFile={{ enviroment_file }}
+ExecStart={{ home_path }}/venv/bin/twistd \
+    --nodaemon \
+    --pidfile= \
+    -y {{ node_file }}
+WorkingDirectory={{ working_directory }}
+User={{ app_user }}
+Group={{ app_user }}
+Restart={{ restart }}
+
+
+[Install]
+WantedBy={{ wanted_by }}

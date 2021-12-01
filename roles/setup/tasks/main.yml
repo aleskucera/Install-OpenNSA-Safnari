@@ -1,0 +1,15 @@
+---
+- include_tasks: prerequisites.yml
+  tags: [ setup, prerequisites, app_user, download_repos ]
+
+- include_tasks: app_user.yml
+  tags: [ virtualenv ]
+
+- include_tasks: ssl.yml
+  tags: [ ssl ]
+
+- include_tasks: configuration.yml
+  tags: [ configuration ]
+
+- include_tasks: postgresql.yml
+  tags: [ postgresql ]
