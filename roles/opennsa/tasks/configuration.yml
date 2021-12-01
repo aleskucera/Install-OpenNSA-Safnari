@@ -1,21 +1,5 @@
 ---
 # Configuration
-- name: Create directory
-  file:
-    path: "{{ config_path }}"
-    state: directory
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
-    mode: '0755'
-  tags: [ configuration ]
-
-- name: Configuration
-  template: 
-    src: "{{ item.path }}"
-    dest: "{{ config_path }}/{{ item.name }}"
-  loop: "{{ templates }}"
-  tags: [ configuration ]
-
 - name: Create symlink
   file: 
     src: "{{ config_path }}/{{ opennsa_service }}"
