@@ -1,19 +1,19 @@
 ---
 #------------------GENERAL------------------
-
-prerequisites: [ 'openssl', 'libssl-dev', 'libssl-doc', 'python-dev', 'python3-virtualenv', 'build-essential', 'postgresql', 'libpq-dev', 'postgresql-contrib', 'python3-psycopg2', 'acl' ]
+prerequisites: [ 'openssl', 'libssl-dev', 'libssl-doc', 'python-dev', 'python3-virtualenv', 'build-essential', 'postgresql', 'libpq-dev', 
+                'postgresql-contrib', 'python3-psycopg2', 'acl', 'apache2', 'maven', 'zip', 'openjdk-8-jdk', 'sbt']
 
 # General
 app_user: "opennsa"
 home_path: "/opt/{{ app_user }}" 
 config_path: "/etc/{{ app_user }}"
 
+# Apache
+apache2_modules: ['ssl', 'proxy', 'proxy_http', 'proxy_balancer', 'lbmethod_byrequests', 'proxy_ajp', 'rewrite', 'deflate',
+                 'headers', 'proxy_balancer', 'proxy_connect', 'proxy_html']
+
 # PostgeSQL
 postgres_user: "{{ app_user }}"
-postgres_db: "{{ app_user }}-main"
-
-# Git repository
-repository: "https://gitlab.geant.org/hazlinsky/opennsa3.git"
 
 # Configuration files
 opennsa_environment: "opennsa_environment"
@@ -36,7 +36,7 @@ certificate_dest: /etc/ssl/certs/nsi_vm_cesnet_cz.pem
 key_dest: /etc/ssl/private/nsi_vm_cesnet_cz.key
 
 certificate_src: "{{ hosts_dir }}/files/certificate.pem"
-key_src: "{{ hosts_dir }}/files/opennsa-cesnet-cz-key2.pem"
+key_src: "{{ hosts_dir }}/files/private_key.pem"
 
 #------------------CONFIG------------------
 

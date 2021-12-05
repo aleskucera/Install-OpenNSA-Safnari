@@ -1,0 +1,12 @@
+---
+- name: Restart PostgreSQL
+  service: 
+    name: postgresql 
+    state: restarted
+  tags: [ PostgreSQL ]
+
+- name: Restart Apache  
+  service: 
+    name: apache2
+    state: restarted
+  tags: [ Apache ]

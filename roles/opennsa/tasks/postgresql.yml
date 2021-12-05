@@ -25,4 +25,6 @@
     as_single_query: yes
   become_user: postgres
   when: db_state.changed
+  notify: 
+    - Restart PostgreSQL
   tags: [ postgresql ]

@@ -4,7 +4,7 @@
   group:
     name: "{{ app_user }}"
     state: present
-  tags: [ setup, app_user ]
+  tags: [ app_user ]
 
 - name: Create a user
   user: 
@@ -17,4 +17,4 @@
     createhome: yes
     home: "{{ home_path }}"
     shell: /bin/bash
-  tags: [ setup, app_user ]
+  tags: [ app_user ]

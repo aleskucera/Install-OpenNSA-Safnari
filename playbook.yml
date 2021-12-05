@@ -2,12 +2,11 @@
   - hosts: test_servers
     become: yes
     vars_files:
-      - "{{ hosts_dir }}/general.yml"
-      - "{{ hosts_dir }}/config.yml"
-      - "{{ hosts_dir }}/passwords.yml"
+      - "{{ hosts_dir }}/secrets.yml"
       - "hosts/shared-vars.yml"
     roles:
       - setup
+      - opennsa
 
       
 

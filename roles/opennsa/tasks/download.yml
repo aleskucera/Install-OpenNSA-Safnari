@@ -4,4 +4,4 @@
   git:
     repo: "{{ repository }}"
     dest: "{{ home_path }}/repo"
-  tags: [ setup, download_repos ]
+  tags: [ download ]

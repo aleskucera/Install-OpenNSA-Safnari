@@ -1,9 +1,9 @@
 ---
 - include_tasks: prerequisites.yml
-  tags: [ setup, prerequisites, app_user, download_repos ]
+  tags: [ prerequisites ]
 
 - include_tasks: app_user.yml
-  tags: [ virtualenv ]
+  tags: [ app_user ]
 
 - include_tasks: ssl.yml
   tags: [ ssl ]

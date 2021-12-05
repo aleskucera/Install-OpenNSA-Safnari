@@ -1,0 +1,8 @@
+---
+# Change java version
+- name: Change java version
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java
+  tags: [ java ]
+

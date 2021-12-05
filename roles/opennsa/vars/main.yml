@@ -1,0 +1,5 @@
+---
+# Git repository
+repository: "https://gitlab.geant.org/hazlinsky/opennsa3.git"
+
+postgres_db: "{{ app_user }}-main"

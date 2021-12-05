@@ -7,15 +7,10 @@
     state: link 
     owner: root
     group: root
-  tags: [ configuration ]
-
-- name: Reload daemon
-  systemd: 
-    daemon_reload: yes
+  notify: 
+    - Reload daemon
   tags: [ configuration ]
 
 - name: Start opennsa service
-  systemd:
-    name: opennsa
-    state: started
+  shell: systemctl start opennsa.service
   tags: [ configuration ]
