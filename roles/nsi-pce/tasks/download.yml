@@ -5,3 +5,12 @@
     repo: '{{ repos.pce.link }}'
     dest: '{{ repos.pce.folder }}'
   tags: [ download ]
+
+- name: Change ownership
+  file:
+    path: '{{ repos.pce.folder }}'
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+  tags: [ download ]

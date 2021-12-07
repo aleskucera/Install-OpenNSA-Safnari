@@ -1,0 +1,4 @@
+---
+- name: Install nsi-dds
+  command: chdir={{ repos.dds.folder }}/ mvn clean install -Dmaven.test.skip=true
+  tags: [ installation ]

@@ -5,3 +5,12 @@
     repo: "{{ repos.opennsa.link }}"
     dest: "{{ repos.opennsa.folder }}"
   tags: [ download ]
+
+- name: Change ownership
+  file:
+    path: '{{ repos.opennsa.folder }}'
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+  tags: [ download ]

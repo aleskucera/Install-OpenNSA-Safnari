@@ -1,0 +1,19 @@
+---
+# PostgreSQL
+- name: Create PostgreSQL database
+  postgresql_db:
+    name: "{{ databases.safnari }}"
+    state: present
+  become_user: postgres
+  register: db_state
+  tags: [ postgresql ]
+  
+- name: Grant privileges to the database
+  postgresql_privs:
+    type: database
+    database: "{{ databases.safnari }}"
+    roles: "{{ postgres_user }}"
+    grant_option: no
+    privs: all
+  become_user: postgres
+  tags: [ postgresql ]

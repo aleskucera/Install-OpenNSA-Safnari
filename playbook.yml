@@ -8,8 +8,8 @@
       - setup
       - opennsa
       - safnari
-      - nsi-pce
       - nsi-dds
+      - nsi-pce
 
       
 

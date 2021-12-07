@@ -1,3 +1,6 @@
 ---
 - include_tasks: download.yml
   tags: [ download ]
+
+- include_tasks: postgresql.yml
+  tags: [ postgresql]

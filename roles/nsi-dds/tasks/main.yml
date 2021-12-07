@@ -2,3 +2,6 @@
 - include_tasks: download.yml
   tags: [ download ]
 
+- include_tasks: install.yml
+  tags: [ installation ]
+

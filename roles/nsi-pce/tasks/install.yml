@@ -1,0 +1,4 @@
+---
+- name: Install nsi-pce
+  command: chdir={{ repos.pce.folder }}/ mvn clean install -Dmaven.test.skip=true
+  tags: [ installation ]

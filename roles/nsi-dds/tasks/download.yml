@@ -5,3 +5,12 @@
     repo: "{{ repos.dds.link }}"
     dest: "{{ repos.dds.folder }}"
   tags: [ download ]
+
+- name: Change ownership
+  file:
+    path: '{{ repos.dds.folder }}'
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+  tags: [ download ]
