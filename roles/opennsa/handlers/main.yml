@@ -4,3 +4,9 @@
     name: postgresql 
     state: restarted
   tags: [ PostgreSQL ]
+
+- name: Reload daemon
+  systemd: 
+    daemon_reload: yes
+  tags: [ configuration ]
+

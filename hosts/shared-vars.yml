@@ -30,6 +30,18 @@ templates:
   - { path: 'opennsa.conf.j2', name: '{{ opennsa_conf }}' }
   - { path: 'opennsa.nrm.j2', name: '{{ opennsa_nrm }}' }
 
+repos: { 
+  opennsa: { link: 'https://gitlab.geant.org/hazlinsky/opennsa3.git', folder: '{{ home_path }}/opennsa' },
+  safnari: { link: 'https://github.com/BandwidthOnDemand/nsi-safnari.git', folder: '{{ home_path }}/safnari' },
+  dds: { link: 'https://github.com/BandwidthOnDemand/nsi-dds.git', folder: '{{ home_path }}/nsi-dds' },
+  pce: { link: 'https://github.com/BandwidthOnDemand/nsi-pce.git', folder: '{{ home_path }}/nsi-pce' }
+  }
+
+databases: {
+  opennsa: "{{ app_user }}-opennsa",
+  safnari: "{{ app_user }}-safnari"
+  }
+
 # SSL
 cert_dir: /etc/ssl/certs
 certificate_dest: /etc/ssl/certs/nsi_vm_cesnet_cz.pem

@@ -1,3 +1,6 @@
 opennsa/ssl/opennsa-cesnet-cz-key.pem
 opennsa/ssl/opennsa-cesnet-cz-key2.pem
 hosts_test
+roles/nsi-dds/
+roles/nsi-pce/
+roles/safnari/

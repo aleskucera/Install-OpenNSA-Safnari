@@ -5,8 +5,8 @@
 - include_tasks: venv.yml
   tags: [ virtualenv ]
 
-- include_tasks: configuration.yml
-  tags: [ configuration ]
+- include_tasks: service.yml
+  tags: [ service ]
 
 - include_tasks: postgresql.yml
   tags: [ postgresql ]

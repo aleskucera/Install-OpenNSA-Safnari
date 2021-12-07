@@ -2,6 +2,6 @@
 # Download repo
 - name: Download git repo
   git:
-    repo: "{{ repository }}"
-    dest: "{{ home_path }}/repo"
+    repo: "{{ repos.opennsa.link }}"
+    dest: "{{ repos.opennsa.folder }}"
   tags: [ download ]

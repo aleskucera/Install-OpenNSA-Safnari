@@ -2,7 +2,7 @@
 # PostgreSQL
 - name: Create PostgreSQL database
   postgresql_db:
-    name: "{{ postgres_db }}"
+    name: "{{ databases.opennsa }}"
     state: present
   become_user: postgres
   register: db_state
@@ -11,7 +11,7 @@
 - name: Grant privileges to the database
   postgresql_privs:
     type: database
-    database: "{{ postgres_db }}"
+    database: "{{ databases.opennsa }}"
     roles: "{{ postgres_user }}"
     grant_option: no
     privs: all
@@ -20,8 +20,8 @@
 
 - name: Run queries from SQL script
   community.postgresql.postgresql_query:
-    db: "{{ postgres_db }}"
-    path_to_script: "{{ home_path }}/repo/opennsa/datafiles/schema.sql"
+    db: "{{ databases.opennsa }}"
+    path_to_script: "{{ repos.opennsa.folder }}/opennsa/datafiles/schema.sql"
     as_single_query: yes
   become_user: postgres
   when: db_state.changed

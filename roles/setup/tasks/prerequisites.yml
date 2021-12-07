@@ -21,7 +21,6 @@
     update_cache: yes
   tags: [ sbt ] 
 
-
 - name: Install prerequisites
   apt:
     name: "{{ item }}"

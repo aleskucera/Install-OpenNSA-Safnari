@@ -1,6 +1,6 @@
 [Unit]
-Description={{ description }}
-After={{ after }}
+Description=OpenNSA3 node
+After=syslog.target network.target
 
 [Service]
 Environment=OPENNSA_CONFIGFILE={{ config_file }}
@@ -13,8 +13,8 @@ ExecStart={{ home_path }}/venv/bin/twistd \
 WorkingDirectory={{ working_directory }}
 User={{ app_user }}
 Group={{ app_user }}
-Restart={{ restart }}
+Restart=always
 
 
 [Install]
-WantedBy={{ wanted_by }}
+WantedBy=multi-user.target

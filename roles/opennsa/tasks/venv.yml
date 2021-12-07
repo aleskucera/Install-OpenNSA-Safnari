@@ -2,7 +2,7 @@
 # Setup virtual enviroment
 - name: Create virtualenv and install requirements
   pip:
-    requirements: "{{ home_path }}/repo/requirements.txt"
+    requirements: "{{ repos.opennsa.folder }}/requirements.txt"
     virtualenv:  "{{ home_path }}/venv"
     virtualenv_python: python3
   tags: [ virtualenv ]
