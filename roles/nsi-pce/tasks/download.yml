@@ -1,0 +1,7 @@
+---
+# Download repo
+- name: Download git repo
+  git:
+    repo: '{{ repos.pce.link }}'
+    dest: '{{ repos.pce.folder }}'
+  tags: [ download ]

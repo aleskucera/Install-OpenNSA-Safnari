@@ -1,0 +1,7 @@
+---
+# Download repo
+- name: Download git repo
+  git:
+    repo: "{{ repos.safnari.link }}"
+    dest: "{{ repos.safnari.folder }}"
+  tags: [ download ]

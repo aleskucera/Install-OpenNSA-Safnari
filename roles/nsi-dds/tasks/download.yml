@@ -1,0 +1,7 @@
+---
+# Download repo
+- name: Download git repo
+  git:
+    repo: "{{ repos.dds.link }}"
+    dest: "{{ repos.dds.folder }}"
+  tags: [ download ]
