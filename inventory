@@ -3,7 +3,7 @@
 
 [test_servers:vars]
 ansible_python_interpreter=/usr/bin/python3
-ansible_user=ales
+ansible_user=ansible_user
 hosts_dir=hosts/staging
 
 [cesnet_servers]

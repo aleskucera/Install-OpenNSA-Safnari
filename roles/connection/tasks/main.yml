@@ -1,0 +1,40 @@
+---
+- name: Create group
+  group:
+    name: "{{ user }}"
+    state: present
+
+- name: Create a user
+  user: 
+    name: "{{ user }}"
+    groups: 
+      - "{{ user }}"
+    password: "{{ pass | password_hash('sha512') }}"                              
+    state: present
+    createhome: yes
+    home: "/home/{{ user }}"
+    shell: /bin/bash
+
+- name: Add ansible user to sudoers
+  lineinfile: 
+    dest: /etc/sudoers
+    insertafter: EOF
+    line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+    regexp: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+    state: present
+
+- name: Deploy SSH Key
+  authorized_key: 
+    user: "{{ user }}"
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+    state: present
+
+- name: Disable Password Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: "PasswordAuthentication no"
+    state: present
+    backup: yes
+  notify:
+    - restart ssh

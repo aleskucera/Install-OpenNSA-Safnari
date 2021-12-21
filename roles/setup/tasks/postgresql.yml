@@ -4,7 +4,7 @@
   postgresql_user:
     state: present
     name: "{{ postgres_user }}"
-    password: "{{ postgres_user_pass_hashed }}"
+    password: "{{ postgres_user_pass | password_hash('sha512') }}"
   become_user: postgres
   notify:
     - Restart PostgreSQL

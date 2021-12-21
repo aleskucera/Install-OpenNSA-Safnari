@@ -12,7 +12,7 @@
     groups: 
       - "{{ app_user }}"
       - "ssl-cert"
-    password: "{{ user_password_hashed }}"                              
+    password: "{{ user_password | password_hash('sha512') }}"                             
     state: present
     createhome: yes
     home: "{{ home_path }}"
