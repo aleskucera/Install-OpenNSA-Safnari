@@ -29,6 +29,7 @@
     key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
     state: present
 
+# OPTIONAL
 - name: Disable Password Authentication
   lineinfile:
     dest: /etc/ssh/sshd_config
