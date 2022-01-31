@@ -15,3 +15,20 @@
     dest: "{{ config_path }}/{{ item.name }}"
   loop: "{{ templates }}"
   tags: [ configuration ]
+
+# Change java version
+- name: Change java version
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java
+  tags: [ configuration ]
+
+# Enable apache2 modules
+- name: Enable apache2 modules
+  community.general.apache2_module:
+    state: present
+    name: "{{ item }}"
+  loop: "{{ apache2_modules }}"
+  notify:
+    - Restart Apache
+  tags: [ configuration ]

@@ -11,5 +11,5 @@
 - include_tasks: configuration.yml
   tags: [ configuration ]
 
-- include_tasks: postgresql.yml
+- include_tasks: postgresql_user.yml
   tags: [ postgresql ]
