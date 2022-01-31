@@ -54,7 +54,7 @@ key_src: "{{ hosts_dir }}/files/private_key.pem"
 
 #opennsa.cesnet.cz
 
-# Enviroment
+# Environment
 opennsa: "{{ home_path }}/repo"
 opennsa_venv: "{{ home_path }}/venv"
 python_path: "{{ home_path }}/repo"
